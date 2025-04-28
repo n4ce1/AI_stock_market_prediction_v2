@@ -13,7 +13,7 @@
 
 ## 📌 Issue 2: Dokumentacja projektu
 - [x] Task 2.1: Utworzyć plik `README.md` z opisem i instrukcją uruchamiania
-- [ ] Task 2.2: Dodać sekcję "Roadmap" do `README.md`
+- [x] Task 2.2: Dodać sekcję "Roadmap" do `README.md`
 
 **Odpowiedzialny:** Kacper  
 
