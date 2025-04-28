@@ -39,18 +39,18 @@
 ---
 
 ## 📌 Issue 5: Testowe zadanie programistyczne
-- [ ] Task 5.1: Utworzyć prosty skrypt `hello.py` i sprawdzić działanie środowiska
+- [x] Task 5.1: Utworzyć prosty skrypt `hello.py` i sprawdzić działanie środowiska
 
 **Odpowiedzialny:** Gracjan
 
 
 ---
 
-## 📌 Issue 7: Zebranie i wstępna obróbka danych
-- [ ] Task 7.1: Pozyskać dane historyczne rynku walutowego (np. EUR/USD) za lata 2015–2020
-- [ ] Task 7.2: Wykonać eksploracyjną analizę danych (EDA)
-- [ ] Task 7.3: Obróbka danych (przekształcenie na szereg czasowy, normalizacja)
-- [ ] Task 7.4: Podzielić dane na zbiór treningowy i testowy
+## 📌 Issue 6: Zebranie i wstępna obróbka danych
+- [ ] Task 6.1: Pozyskać dane historyczne rynku walutowego (np. EUR/USD) za lata 2015–2020
+- [ ] Task 6.2: Wykonać eksploracyjną analizę danych (EDA)
+- [ ] Task 6.3: Obróbka danych (przekształcenie na szereg czasowy, normalizacja)
+- [ ] Task 6.4: Podzielić dane na zbiór treningowy i testowy
 
 **Odpowiedzialny:** Kacper
 
