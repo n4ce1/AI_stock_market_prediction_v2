@@ -1,7 +1,9 @@
 pandas
 numpy
 scikit-learn
+xgboost
 tensorflow
+keras
 statsmodels
 matplotlib
 seaborn
