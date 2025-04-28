@@ -1,9 +1,10 @@
 # 🛠️ Plan projektu: Wprowadzenie techniczne
 
 ## 📌 Issue 1: Przygotowanie środowiska lokalnego
-- [x] Task 1.1: Zainstalować Pythona w odpowiedniej wersji (3.10/3.11)
-- [ ] Task 1.2: Utworzyć i aktywować wirtualne środowisko (`python -m venv .venv`)
-- [ ] Task 1.3: Zainstalować podstawowe zależności (`pip install -r requirements.txt`)
+- [x] Task 1.1: Zainstalować Python 3.12.3
+- [x] Task 1.2: Zainstalować Pandas, Numpy, Scikit-learn, XGBoost, TensorFlow, Keras, statsmodels
+- [x] Task 1.3: Skonfigurować środowisko wirtualne (np. venv)
+- [x] Task 1.4: Utworzyć plik `requirements.txt`
 
 **Odpowiedzialny:** Kacper, Gracjan
 
@@ -11,7 +12,7 @@
 ---
 
 ## 📌 Issue 2: Dokumentacja projektu
-- [ ] Task 2.1: Utworzyć plik `README.md` z opisem i instrukcją uruchamiania
+- [x] Task 2.1: Utworzyć plik `README.md` z opisem i instrukcją uruchamiania
 - [ ] Task 2.2: Dodać sekcję "Roadmap" do `README.md`
 
 **Odpowiedzialny:** Kacper  
@@ -20,8 +21,8 @@
 ---
 
 ## 📌 Issue 3: Konfiguracja GitHub
-- [ ] Task 3.1: Utworzyć i zatwierdzić `.gitignore`
-- [ ] Task 3.2: Dodać plik z licencją (np. MIT License)
+- [x] Task 3.1: Utworzyć i zatwierdzić `.gitignore`
+- [x] Task 3.2: Dodać plik z licencją (np. MIT License)
 - [ ] Task 3.3: Utworzyć "Projects" na GitHubie i przenieść tam Issues
 
 **Odpowiedzialny:** Gracjan
@@ -41,17 +42,6 @@
 - [ ] Task 5.1: Utworzyć prosty skrypt `hello.py` i sprawdzić działanie środowiska
 
 **Odpowiedzialny:** Gracjan
-
-
----
-
-## 📌 Issue 6: Wybór głównych technologii i bibliotek
-- [ ] Task 6.1: Zainstalować Python 3.x
-- [ ] Task 6.2: Zainstalować Pandas, Numpy, Scikit-learn, XGBoost, TensorFlow, Keras, statsmodels
-- [ ] Task 6.3: Skonfigurować środowisko wirtualne (np. venv)
-- [ ] Task 6.4: Utworzyć plik `requirements.txt`
-
-**Odpowiedzialny:** Kacper
 
 
 ---
