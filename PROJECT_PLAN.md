@@ -23,15 +23,15 @@
 ## 📌 Issue 3: Konfiguracja GitHub
 - [x] Task 3.1: Utworzyć i zatwierdzić `.gitignore`
 - [x] Task 3.2: Dodać plik z licencją (np. MIT License)
-- [ ] Task 3.3: Utworzyć "Projects" na GitHubie i przenieść tam Issues
+- [x] Task 3.3: Utworzyć "Projects" na GitHubie i przenieść tam Issues
 
 **Odpowiedzialny:** Gracjan
 
 ---
 
 ## 📌 Issue 4: Projektowanie architektury
-- [ ] Task 4.1: Zaplanować strukturę katalogów (`src/`, `tests/`, `data/`)
-- [ ] Task 4.2: Utworzyć szkielety katalogów i plików (np. puste `__init__.py`)
+- [x] Task 4.1: Zaplanować strukturę katalogów (`src/`, `tests/`, `data/`)
+- [x] Task 4.2: Utworzyć szkielety katalogów i plików (np. puste `__init__.py`)
 
 **Odpowiedzialny:** Kacper  
 
