@@ -11,5 +11,5 @@ Porównanie skuteczności różnych metod sztucznej inteligencji w prognozowaniu
 
 1. Sklonuj repozytorium:
    ```bash
-   git clone https://github.com/TwojeRepozytorium.git
-   cd TwojeRepozytorium
+   https://github.com/n4ce1/AI_stock_market_prediction.git
+   AI_stock_market_prediction
