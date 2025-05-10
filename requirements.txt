@@ -7,3 +7,4 @@ keras
 statsmodels
 matplotlib
 seaborn
+sklearn.preprocessing
