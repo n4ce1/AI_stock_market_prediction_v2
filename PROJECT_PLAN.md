@@ -50,7 +50,7 @@
 - [x] Task 6.1: Pozyskać dane historyczne rynku walutowego (np. EUR/USD) za lata 2015–2020
 - [x] Task 6.2: Wykonać eksploracyjną analizę danych (EDA)
 - [x] Task 6.3: Obróbka danych (przekształcenie na szereg czasowy, normalizacja)
-- [ ] Task 6.4: Podzielić dane na zbiór treningowy i testowy
+- [x] Task 6.4: Podzielić dane na zbiór treningowy i testowy
 
 **Odpowiedzialny:** Kacper
 
@@ -63,18 +63,15 @@
 - [ ] Task 8.2: Wytrenowanie modelu na danych 2015–2020
 - [ ] Task 8.3: Generowanie prognozy na rok 2021
 
+**Odpowiedzialny:** Kacper
+
+
 ### 3.2 Model XGBoost
 - [ ] Task 8.4: Przygotowanie cech wejściowych (zmienne opóźnione)
 - [ ] Task 8.5: Wytrenowanie modelu
 - [ ] Task 8.6: Predykcja na rok 2021
 
-### 3.3 Model LSTM
-- [ ] Task 8.7: Przygotowanie sekwencji wejściowych (X, y)
-- [ ] Task 8.8: Budowa sieci neuronowej (1-2 warstwy LSTM + Dense)
-- [ ] Task 8.9: Wytrenowanie modelu
-- [ ] Task 8.10: Predykcja na rok 2021
-
-**Odpowiedzialny:** Kacper
+**Odpowiedzialny:** Gracjan
 
 
 ---
