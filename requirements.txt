@@ -2,9 +2,9 @@ pandas
 numpy
 scikit-learn
 xgboost
-tensorflow
-keras
+# tensorflow
+# keras
 statsmodels
 matplotlib
 seaborn
-sklearn.preprocessing
+pmdarima

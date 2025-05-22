@@ -1,8 +1,19 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
+import os # Importuj moduł os do operacji na ścieżkach
+
+# --- Konfiguracja ścieżek ---
+script_dir = os.path.dirname(__file__) # Katalog, w którym jest ten skrypt (np. src)
+data_dir = os.path.join(script_dir, '..', 'data') # Katalog 'data' w głównym katalogu (rodzic src)
+
+# Pełne ścieżki do plików wejściowego i wyjściowego
+input_file_path = os.path.join(data_dir, 'EUR_USD_2015-2021_data.csv')
+output_file_path = os.path.join(data_dir, 'EUR_USD_2015-2021_data(normalized).csv')
+
 
 # Załaduj dane
-df = pd.read_csv('C:/Users/Kacper/Desktop/EUR_USD Historical Data.csv', sep=',')
+# ZMIANA: Używamy input_file_path
+df = pd.read_csv(input_file_path, sep=',')
 df.columns = df.columns.str.strip().str.replace('"', '')  # Oczyszczanie nazw kolumn
 
 # Konwersja daty na format datetime i ustawienie jej jako indeks
@@ -21,6 +32,7 @@ print(df.head(150))
 print("\nIndeks danych po ustawieniu daty:")
 print(df.index)
 
-# Możesz zapisać przekształcone dane do pliku, jeśli chcesz
-df.to_csv('C:/Users/Kacper/Desktop/EUR_USD_Normalized.csv')
+# Zapisz przekształcone dane do pliku w docelowym katalogu
+# ZMIANA: Używamy output_file_path
+df.to_csv(output_file_path)
 print(df.describe())

@@ -4,43 +4,129 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
 import numpy as np
 import os
+import warnings
 
-# --- Przygotowanie danych (poniższy fragment zakłada, że masz już zdefiniowane 'train' i 'test') ---
-# Poprawiona ścieżka do danych
-# Znajdź ścieżkę do bieżącego katalogu (src/)
-current_dir = os.path.dirname(os.path.abspath(__file__))
-# Przejdź o jeden katalog w górę (do katalogu głównego projektu 'AI_stock_market_prediction'), a potem do 'data'
-data_path = os.path.join(current_dir, '..', 'data', 'EUR_USD Historical Data.csv')
+# --- 1. Wyciszenie FutureWarning ---
+warnings.filterwarnings("ignore", category=FutureWarning)
 
-# Załaduj dane z poprawioną ścieżką
-df = pd.read_csv(data_path, sep=',')
-df.columns = df.columns.str.strip().str.replace('"', '')
-df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y')
-df.set_index('Date', inplace=True)
-df = df.sort_index()
+# --- 2. Konfiguracja ścieżki do danych ---
+script_dir = os.path.dirname(__file__)
+data_path = os.path.join(script_dir, '..', 'data', 'EUR_USD_2015-2021_data.csv')
+results_dir = os.path.join(script_dir, '..', 'results')
+# Pełna ścieżka do pliku wyjściowego (wykresu)
+plot_output_path = os.path.join(results_dir, 'arimax_forecast.png')
 
-# Podział danych na zbiór treningowy (2015-2020) i testowy (2021)
-# Zgodnie z Twoim planem, trenujemy na 2015-2020 i prognozujemy 2021
-train_data = df.loc['2015':'2020', 'Price']
-test_data = df.loc['2021', 'Price'] # Dane testowe na rok 2021
+# --- 3. Ładowanie i wstępne przetwarzanie danych ---
+print("\n--- Rozpoczynam ładowanie i przetwarzanie danych ---")
 
-# Sprawdzenie, czy dane testowe na 2021 rok istnieją. Jeśli nie, to trzeba będzie inaczej określić h
-if test_data.empty:
-    print("Brak danych na rok 2021 w pliku. Prognoza zostanie wygenerowana dla 365 dni.")
-    n_periods = 365 # Liczba dni do prognozowania, jeśli brak danych na 2021
-else:
-    n_periods = len(test_data) # Liczba dni w zbiorze testowym 2021
+try:
+    df = pd.read_csv(data_path, sep=',')
+    df.columns = df.columns.str.strip().str.replace('"', '')
 
-print(f"Liczba punktów danych w zbiorze treningowym (2015-2020): {len(train_data)}")
-print(f"Liczba punktów danych w zbiorze testowym (2021): {n_periods}")
+    # --- Diagnostyka Step 1: Po wczytaniu CSV i czyszczeniu nazw kolumn ---
+    print(f"\n--- Diagnostyka Step 1: Po wczytaniu CSV i czyszczeniu nazw kolumn ---")
+    print(f"Kształt DataFrame: {df.shape}")
+    print(f"Nagłówki kolumn: {df.columns.tolist()}")
+    print(f"Liczba NaNów w każdej kolumnie (isnull.sum()):\n{df.isnull().sum()}")
 
-# --- Koniec przygotowania danych ---
+    # Sprawdzenie, czy kolumny 'Date' i 'Price' istnieją
+    if 'Date' not in df.columns or 'Price' not in df.columns:
+        raise ValueError("Brak kolumn 'Date' lub 'Price' w pliku CSV. Sprawdź nagłówki.")
 
-print("\n--- 3.1 Model ARIMA ---")
+    # Usunięcie kolumny 'Vol.' jeśli zawiera same NaNy (lub jeśli jest niepotrzebna)
+    # Z analizy wynika, że 'Vol.' ma 1566 NaNów, czyli wszystkie.
+    if 'Vol.' in df.columns:
+        if df['Vol.'].isnull().all(): # Sprawdź, czy wszystkie wartości to NaN
+            print("Kolumna 'Vol.' zawiera same wartości NaN i zostanie usunięta.")
+            df.drop(columns=['Vol.'], inplace=True)
+        # else: można by tu obsłużyć, jeśli 'Vol.' ma wartości, ale ma też NaNy,
+        # np. wypełniając je zerami: df['Vol.'] = df['Vol.'].fillna(0)
 
-# Task 8.1: Dobór parametrów (p, d, q) przy pomocy AIC/BIC
-# Użycie auto_arima do automatycznego wyszukiwania najlepszych parametrów (p, d, q)
+    # Konwersja kolumny 'Price' na numeryczną (errors='coerce' zamieni błędy na NaN)
+    df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
+
+    # Konwersja kolumny 'Date' na format daty (errors='coerce' zamieni błędy na NaT)
+    df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y', errors='coerce')
+
+    # Ustawienie kolumny 'Date' jako indeks
+    df.set_index('Date', inplace=True)
+    df = df.sort_index() # Upewnij się, że indeks jest posortowany chronologicznie
+
+    # --- Diagnostyka Step 2: Po konwersji typów danych i ustawieniu indeksu ---
+    print(f"\n--- Diagnostyka Step 2: Po konwersji typów danych i ustawieniu indeksu ---")
+    print(f"Kształt DataFrame: {df.shape}")
+    print(f"Typ indeksu: {df.index.dtype}")
+    print(f"Liczba NaT w indeksie Date: {df.index.isnull().sum()}")
+    print(f"Liczba NaNów w kolumnie Price po konwersji: {df['Price'].isnull().sum()}")
+    print(f"Pierwsze 5 wierszy (head):\n{df.head().to_string()}")
+
+    # Usuń wiersze, gdzie indeks (Date) jest NaT, lub gdzie 'Price' jest NaN
+    # Robimy to na konkretnych kolumnach, żeby nie usuwać wszystkiego przez 'Vol.'
+    df.dropna(subset=['Price'], inplace=True)
+    df = df[df.index.notnull()] # Upewnij się, że indeks nie zawiera NaT
+
+    # --- Diagnostyka Step 3: Po usunięciu NaNów/NaT z Price i Date ---
+    print(f"\n--- Diagnostyka Step 3: Po usunięciu NaNów/NaT z Price i Date ---")
+    print(f"Kształt DataFrame: {df.shape}")
+    if df.empty:
+        raise ValueError("DataFrame jest pusty po usunięciu błędnych dat lub cen. Sprawdź dane źródłowe.")
+
+    # Obliczanie średnich kroczących (zmiennych egzogenicznych)
+    df['SMA_7'] = df['Price'].rolling(window=7).mean()
+    df['EMA_30'] = df['Price'].ewm(span=30, adjust=False).mean()
+
+    # Ostateczne usuwanie NaNów, ale teraz TYLKO z kolumn, które mają sens
+    # np. z kolumn SMA_7 i EMA_30, które będą miały NaNy na początku.
+    # Ważne: df.dropna() bez argumentów usuwa wiersz, jeśli gdziekolwiek jest NaN.
+    # Teraz, gdy Vol. zostało usunięte, dropna() usunie tylko początkowe wiersze.
+    df.dropna(inplace=True)
+
+    # --- Diagnostyka Step 4: Po obliczeniu średnich kroczących i ostatecznym dropna() ---
+    print(f"\n--- Diagnostyka Step 4: Po obliczeniu średnich kroczących i ostatecznym dropna() ---")
+    print(f"Kształt DataFrame: {df.shape}")
+    print(f"Liczba NaNów w SMA_7: {df['SMA_7'].isnull().sum()}")
+    print(f"Liczba NaNów w EMA_30: {df['EMA_30'].isnull().sum()}")
+    print(f"Zakres dat w DataFrame po dropna(): {df.index.min()} do {df.index.max()}")
+    print(f"Pierwsze 5 wierszy (head):\n{df.head().to_string()}")
+
+    if df.empty:
+        raise ValueError("DataFrame jest pusty po obliczeniu średnich kroczących i usunięciu NaNów. Upewnij się, że plik CSV zawiera wystarczająco dużo danych historycznych.")
+
+except Exception as e:
+    print(f"Wystąpił błąd podczas ładowania lub przetwarzania danych: {e}")
+    print("Upewnij się, że plik 'EUR_USD Historical Data.csv' jest poprawnie sformatowany i zawiera dane.")
+    exit() # Zakończ skrypt w przypadku błędu ładowania danych
+
+# --- 4. Podział danych na zbiór treningowy i przygotowanie egzogenicznych ---
+# Zdefiniuj datę początkową zbioru treningowego dynamicznie na podstawie dostępnych danych.
+start_train_date = df.index.min()
+end_train_date = '2020-12-31' # Koniec danych treningowych
+
+# Podział danych na zbiór treningowy
+train_data = df.loc[start_train_date:end_train_date, 'Price']
+train_exog = df.loc[start_train_date:end_train_date, ['SMA_7', 'EMA_30']]
+
+# Dodatkowa diagnostyka - sprawdź, czy train_data i train_exog są puste po loc[]
+if train_data.empty or train_exog.empty:
+    print(f"\nBŁĄD: Zbiór treningowy lub egzogeniczny jest pusty po wyborze dat.")
+    print(f"Zakres dat po dropna(): {df.index.min()} do {df.index.max()}")
+    print(f"Próbowano wybrać zakres: {start_train_date} do {end_train_date}")
+    print(f"Liczba elementów w train_data: {len(train_data)}")
+    print(f"Liczba elementów w train_exog: {len(train_exog)}")
+    exit()
+
+test_data = pd.Series()
+n_periods = 365 # Liczba dni do prognozowania
+
+print(f"\nLiczba punktów danych w zbiorze treningowym ({start_train_date.strftime('%Y-%m-%d')} do {end_train_date}): {len(train_data)}")
+print(f"Liczba zmiennych egzogenicznych w zbiorze treningowym: {train_exog.shape[1]}")
+print(f"Brak danych rzeczywistych na rok 2021. Prognoza zostanie wygenerowana dla {n_periods} dni od ostatniej daty w zbiorze treningowym.")
+
+# --- 5. Model ARIMAX i prognozowanie ---
+print("\n--- 5. Model ARIMAX z średnimi kroczącymi ---")
+
 model_arima = pm.auto_arima(train_data,
+                           exog=train_exog,
                            start_p=1, start_q=1,
                            test='adf',
                            max_p=5, max_q=5,
@@ -52,42 +138,51 @@ model_arima = pm.auto_arima(train_data,
                            suppress_warnings=True,
                            stepwise=True)
 
-print(f"\nNajlepsze parametry ARIMA (p, d, q) według auto_arima: {model_arima.order}")
+print(f"\nNajlepsze parametry ARIMAX (p, d, q) według auto_arima: {model_arima.order}")
 print(f"Wartość AIC dla najlepszego modelu: {model_arima.aic()}")
 
-# Task 8.2: Wytrenowanie modelu na danych 2015–2020
-# Model został wytrenowany przez auto_arima.
-
-# Task 8.3: Generowanie prognozy na rok 2021
-forecast, conf_int = model_arima.predict(n_periods=n_periods, return_conf_int=True)
-
-# Tworzenie indeksu dla prognozy (rok 2021)
+last_train_exog = train_exog.iloc[-1]
 last_train_date = train_data.index[-1]
-forecast_index = pd.date_range(start=last_train_date + pd.Timedelta(days=1), periods=n_periods, freq='D')
-forecast_series = pd.Series(forecast, index=forecast_index)
-conf_int_df = pd.DataFrame(conf_int, index=forecast_index, columns=['lower', 'upper'])
+forecast_exog_index = pd.date_range(start=last_train_date + pd.Timedelta(days=1), periods=n_periods, freq='D')
 
-print("\nPrognoza na rok 2021 (pierwsze 5 dni):")
+forecast_exog = pd.DataFrame(
+    np.tile(last_train_exog.values, (n_periods, 1)),
+    columns=train_exog.columns,
+    index=forecast_exog_index
+)
+
+forecast, conf_int = model_arima.predict(n_periods=n_periods, X=forecast_exog, return_conf_int=True)
+
+forecast_series = pd.Series(forecast, index=forecast_exog_index)
+conf_int_df = pd.DataFrame(conf_int, index=forecast_exog_index, columns=['lower', 'upper'])
+
+print("\nPrognoza na kolejny rok (pierwsze 5 dni):")
 print(forecast_series.head())
 
-# Wizualizacja wyników
+# --- 6. Wizualizacja wyników ---
+print("\n--- 6. Generowanie wykresu ---")
 plt.figure(figsize=(14, 7))
 plt.plot(train_data.index, train_data, label='Dane treningowe (2015-2020)', color='blue')
-if not test_data.empty:
-    plt.plot(test_data.index, test_data, label='Dane rzeczywiste (2021)', color='green')
-plt.plot(forecast_series.index, forecast_series, label='Prognoza ARIMA (2021)', color='red', linestyle='--')
+plt.plot(forecast_series.index, forecast_series, label='Prognoza ARIMAX (rok po danych treningowych)', color='red', linestyle='--')
 plt.fill_between(conf_int_df.index, conf_int_df['lower'], conf_int_df['upper'], color='pink', alpha=0.3, label='Przedział ufności')
-plt.title('Prognoza rynku walutowego EUR/USD modelem ARIMA')
+plt.title('Prognoza rynku walutowego EUR/USD modelem ARIMAX ze średnimi kroczącymi')
 plt.xlabel('Data')
 plt.ylabel('Cena')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
-plt.show()
 
-# Ocena prognozy (jeśli mamy dane testowe na 2021)
-if not test_data.empty:
-    rmse = np.sqrt(mean_squared_error(test_data, forecast_series))
-    print(f"\nRMSE dla prognozy ARIMA: {rmse:.4f}")
-else:
-    print("\nBrak danych rzeczywistych na rok 2021 do oceny RMSE.")
+if not os.path.exists(results_dir):
+    os.makedirs(results_dir)
+
+plt.savefig(plot_output_path) # Używamy już zdefiniowanej, pełnej ścieżki
+print(f"Wykres został zapisany jako '{plot_output_path}'")
+
+try:
+    plt.show()
+except Exception as e:
+    print(f"Nie można wyświetlić wykresu interaktywnie: {e}")
+    print(f"Sprawdź konfigurację backendu Matplotlib lub otwórz '{plot_output_path}' ręcznie.")
+
+# --- 7. Ocena prognozy ---
+print("\nBrak danych rzeczywistych na rok 2021 do oceny RMSE.")

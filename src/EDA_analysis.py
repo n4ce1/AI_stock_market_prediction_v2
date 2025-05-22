@@ -1,13 +1,30 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os # Importuj moduł os do operacji na ścieżkach
+
+# --- Konfiguracja ścieżki do danych ---
+# dynamiczne określenie katalogu skryptu
+script_dir = os.path.dirname(__file__)
+# Ścieżka do pliku EUR_USD Historical Data.csv, który znajduje się w katalogu nadrzędnym
+# względem katalogu src, gdzie ten skrypt się znajduje.
+data_file_path = os.path.join(script_dir, '..', 'data', 'EUR_USD_2015-2021_data.csv')
+
 
 # Załaduj dane
-df = pd.read_csv('C:/Users/Kacper/Desktop/EUR_USD Historical Data.csv', sep=',')
+# ZMIANA: Używamy data_file_path
+df = pd.read_csv(data_file_path, sep=',')
 df.columns = df.columns.str.strip().str.replace('"', '')  # Oczyszczanie nazw kolumn
 
 # Krok 1: Konwersja kolumny 'Date' na typ daty
-df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y')
+# Użyj errors='coerce' dla większej odporności na błędy w danych
+df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y', errors='coerce')
+
+# Usuń wiersze, w których konwersja daty się nie powiodła
+initial_rows = len(df)
+df.dropna(subset=['Date'], inplace=True)
+if len(df) < initial_rows:
+    print(f"Usunięto {initial_rows - len(df)} wierszy z nieprawidłowymi datami.")
 
 # Krok 2: Statystyki opisowe
 print("\nStatystyki opisowe:")

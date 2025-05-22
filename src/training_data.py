@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-data_path = os.path.abspath(os.path.join(os.path.dirname(file), "..", "data", "EUR_USD Historical Data.csv"))
+data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data", "EUR_USD_2015-2021_data.csv"))
 
 df = pd.read_csv(data_path)
 df.columns = df.columns.str.strip().str.replace('"', '')
