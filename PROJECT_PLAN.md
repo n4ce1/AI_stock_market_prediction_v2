@@ -57,57 +57,57 @@
 
 ---
 
-## 📌 Issue 8: Implementacja i trenowanie modeli
+## 📌 Issue 7: Implementacja i trenowanie modeli
 ### 3.1 Model ARIMA
-- [ ] Task 8.1: Dobór parametrów (p, d, q) przy pomocy AIC/BIC
-- [ ] Task 8.2: Wytrenowanie modelu na danych 2015–2020
-- [ ] Task 8.3: Generowanie prognozy na rok 2021
+- [x] Task 7.1: Dobór parametrów (p, d, q) przy pomocy AIC/BIC
+- [x] Task 7.2: Wytrenowanie modelu na danych 2015–2020
+- [x] Task 7.3: Generowanie prognozy na rok 2021
 
 **Odpowiedzialny:** Kacper
 
 
 ### 3.2 Model XGBoost
-- [ ] Task 8.4: Przygotowanie cech wejściowych (zmienne opóźnione)
-- [ ] Task 8.5: Wytrenowanie modelu
-- [ ] Task 8.6: Predykcja na rok 2021
+- [x] Task 7.4: Przygotowanie cech wejściowych (zmienne opóźnione)
+- [x] Task 7.5: Wytrenowanie modelu
+- [x] Task 7.6: Predykcja na rok 2021
 
 **Odpowiedzialny:** Gracjan
 
 
 ---
 
-## 📌 Issue 9: Ocena i porównanie modeli
-- [ ] Task 9.1: Wygenerowanie prognoz każdego modelu na dane testowe
-- [ ] Task 9.2: Obliczenie metryk błędu (RMSE, MAPE)
-- [ ] Task 9.3: Pomiar czasu działania
-- [ ] Task 9.4: Ocena interpretowalności modeli
+## 📌 Issue 8: Ocena i porównanie modeli
+- [ ] Task 8.1: Wygenerowanie prognoz każdego modelu na dane testowe
+- [ ] Task 8.2: Obliczenie metryk błędu (RMSE, MAPE)
+- [ ] Task 8.3: Pomiar czasu działania
+- [ ] Task 8.4: Ocena interpretowalności modeli
 
 **Odpowiedzialny:** Kacper
 
 
 ---
 
-## 📌 Issue 10: Wyciągnięcie wniosków i rekomendacji
-- [ ] Task 10.1: Analiza wyników i ocena najlepszych modeli
-- [ ] Task 10.2: Zidentyfikowanie potencjalnych słabości
-- [ ] Task 10.3: Sformułowanie rekomendacji do przyszłych prac
+## 📌 Issue 9: Wyciągnięcie wniosków i rekomendacji
+- [ ] Task 9.1: Analiza wyników i ocena najlepszych modeli
+- [ ] Task 9.2: Zidentyfikowanie potencjalnych słabości
+- [ ] Task 9.3: Sformułowanie rekomendacji do przyszłych prac
 
 **Odpowiedzialny:** Kacper
 
 
 ---
 
-## 📌 Issue 11: Opracowanie dokumentacji projektu
-- [ ] Task 11.1: Przygotowanie raportu końcowego
-- [ ] Task 11.2: Przygotowanie prezentacji
-- [ ] Task 11.3: Aktualizacja repozytorium
+## 📌 Issue 10: Opracowanie dokumentacji projektu
+- [ ] Task 10.1: Przygotowanie raportu końcowego
+- [ ] Task 10.2: Przygotowanie prezentacji
+- [ ] Task 10.3: Aktualizacja repozytorium
 
 **Odpowiedzialny:** Kacper
 
 
 ---
 
-## 📌 Issue 12: Kamienie milowe
+## 📌 Issue 11: Kamienie milowe
 ### KM1: Przygotowanie środowiska + zebranie danych
 - **Termin:** 2–3 dni
 
