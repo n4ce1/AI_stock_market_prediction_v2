@@ -3,3 +3,75 @@ https://www.sciencedirect.com/science/article/pii/S2590291124000615
 https://arxiv.org/abs/2212.12717
 https://www.mdpi.com/2079-9292/10/21/2717
 https://www.mdpi.com/1911-8074/14/11/526
+https://repository.uel.ac.uk/item/8ywv5
+https://www.mdpi.com/1996-1073/18/6/1432
+https://www.researchgate.net/publication/370574317_Stock_Prediction_of_Google_based_on_ARIMA_XGBoost_and_LSTM
+https://www.researchgate.net/publication/355245201_A_comparison_of_the_optimized_LSTM_XGBOOST_and_ARIMA_in_Time_Series_forecasting
+https://everant.org/index.php/etj/article/view/1495
+https://www.researchgate.net/publication/357486637_Stock-price_forecasting_based_on_XGBoost_and_LSTM
+https://www.researchgate.net/publication/379259213_Applying_ensemble_learning_to_multiple_stock_price_predictions_A_comparative_study
+https://www.researchgate.net/publication/358870252_Stock_Market_Prediction_using_Sentiment_Analysis_and_Machine_Learning_Approach
+https://www.aimspress.com/article/doi/10.3934/era.2024314?viewType=HTML
+https://www.mdpi.com/2227-7390/12/7/945
+https://www.shs-conferences.org/articles/shsconf/pdf/2024/16/shsconf_edma2024_02001.pdf
+
+
+Systematyczny przegląd badań nad zastosowaniem sztucznej inteligencji w prognozowaniu rynku akcji, identyfikujący skuteczność różnych modeli.
+Rok publikacji: 2024
+https://www.sciencedirect.com/science/article/pii/S2590291124000615
+
+Propozycja hybrydowego modelu łączącego ARIMA, CNN-LSTM z mechanizmem uwagi oraz XGBoost do prognozowania cen akcji, wykazującego wysoką dokładność.
+Rok publikacji: 2022
+https://arxiv.org/abs/2204.02623
+
+Analiza systematyczna podejść opartych na uczeniu maszynowym do prognozowania rynku akcji, obejmująca dekadę badań i identyfikująca kluczowe kierunki rozwoju.
+Rok publikacji: 2021
+https://www.mdpi.com/2079-9292/10/21/2717
+
+Przegląd 148 badań wykorzystujących techniki neuronowe i hybrydowe w prognozowaniu rynków akcji, zidentyfikowanych za pomocą analizy tematycznej.
+Rok publikacji: 2021
+https://www.mdpi.com/1911-8074/14/11/526
+
+Porównanie skuteczności modeli LSTM, ARIMA i XGBoost w prognozowaniu cen akcji, z wykorzystaniem danych historycznych i metryk błędu.
+Rok publikacji: 2024
+https://repository.uel.ac.uk/item/8ywv5
+
+Propozycja hybrydowego modelu ARIMA-LSTM-XGBoost z wykorzystaniem regresji liniowej do prognozowania temperatury oleju transformatora, wykazującego wysoką dokładność.
+Rok publikacji: 2025
+https://www.mdpi.com/1996-1073/18/6/1432
+
+Porównanie modeli ARIMA, XGBoost i LSTM w prognozowaniu cen akcji Google, wskazujące na wyższą dokładność XGBoost.
+Rok publikacji: 2023
+https://www.researchgate.net/publication/370574317_Stock_Prediction_of_Google_based_on_ARIMA_XGBoost_and_LSTM
+
+Analiza porównawcza zoptymalizowanych modeli LSTM, XGBoost i ARIMA w prognozowaniu szeregów czasowych, z uwzględnieniem różnych metryk błędu.
+Rok publikacji: 2021
+https://www.researchgate.net/publication/355245201_A_comparison_of_the_optimized_LSTM_XGBOOST_and_ARIMA_in_Time_Series_forecasting
+
+Ocena zdolności predykcyjnych algorytmów XGBoost, LSTM i ARIMA w prognozowaniu cen akcji, z wykorzystaniem danych historycznych.
+Rok publikacji: 2024
+https://everant.org/index.php/etj/article/view/1495
+
+Propozycja metody poprawy wydajności prognozowania cen akcji poprzez selekcję cech za pomocą XGBoost i prognozowanie za pomocą LSTM.
+Rok publikacji: 2021
+https://www.researchgate.net/publication/357486637_Stock-price_forecasting_based_on_XGBoost_and_LSTM
+
+Zastosowanie uczenia zespołowego do prognozowania cen akcji, z porównaniem różnych modeli i analizą ich skuteczności.
+Rok publikacji: 2023
+https://www.researchgate.net/publication/379259213_Applying_ensemble_learning_to_multiple_stock_price_predictions_A_comparative_study
+
+Wykorzystanie analizy sentymentu i technik uczenia maszynowego do prognozowania rynku akcji, z uwzględnieniem danych tekstowych.
+Rok publikacji: 2023
+https://www.researchgate.net/publication/358870252_Stock_Market_Prediction_using_Sentiment_Analysis_and_Machine_Learning_Approach
+
+Propozycja modelu hybrydowego łączącego LSTM i XGBoost do prognozowania cen akcji, z analizą skuteczności na różnych zestawach danych.
+Rok publikacji: 2024
+https://www.aimspress.com/article/doi/10.3934/era.2024314?viewType=HTML
+
+Porównanie modeli LSTM, XGBoost i ARIMA w prognozowaniu cen akcji, z uwzględnieniem różnych metryk błędu i analizą skuteczności.
+Rok publikacji: 2024
+https://www.mdpi.com/2227-7390/12/7/945
+
+Analiza porównawcza modeli LSTM, XGBoost i ARIMA w prognozowaniu cen akcji, z wykorzystaniem danych historycznych i metryk błędu.
+Rok publikacji: 2024
+https://www.shs-conferences.org/articles/shsconf/pdf/2024/16/shsconf_edma2024_02001.pdf
